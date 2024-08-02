@@ -1,7 +1,6 @@
 package kassandrafalsitta;
 
-import static kassandrafalsitta.entities.Archive.add;
-import static kassandrafalsitta.entities.Archive.delete;
+import static kassandrafalsitta.entities.Archive.*;
 
 
 public class Application {
@@ -14,6 +13,10 @@ public class Application {
         add();
         //esercizio 2
         delete();
+        //esercizio 3
+        searchForIsbn();
+        //esercizio 4
+        searchForYear();
 
 
     }

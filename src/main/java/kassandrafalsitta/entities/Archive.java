@@ -92,7 +92,7 @@ public class Archive {
                 } else {
                     Optional<Catalog> itemSearch = catalog.stream().filter(singleItem -> singleItem.getCodeIsbn().equals(choice)).findFirst();
                     if (itemSearch.isPresent()) {
-                        System.out.println(" hai cercato: " + itemSearch.get().getTitle() + " isbn: " + itemSearch.get().getCodeIsbn() + " ha " + itemSearch.get().getNumberOfPages() + " pagine pubblicato nel: " + itemSearch.get().getYearOfPublication());
+                        System.out.println(" hai cercato: " + itemSearch.get().getTitle() + " isbn: " + itemSearch.get().getCodeIsbn() + " ha " + itemSearch.get().getNumberOfPages() + " pagine pubblicato nel: " + itemSearch.get().getYearOfPublication() + "\n");
 
                     } else {
                         System.out.println("non è stato possibile trovare l'elemento\n");
@@ -142,15 +142,16 @@ public class Archive {
         while (true) {
             try {
                 System.out.println(" inserisci l'autore dell'elemento che vuoi cercare, oppure 0 per uscire");
-                for (int i = 0; i < catalog.size(); i++) {
-                    if (catalog.get(i) instanceof Book) {
-                        System.out.println(((Book) catalog.get(i)).getAuthor() + " --> " + catalog.get(i).getTitle());
+                for (Catalog value : catalog) {
+                    if (value instanceof Book) {
+                        System.out.println(((Book) value).getAuthor() + " --> " + value.getTitle());
                     } else {
-                        System.out.println("non disponibile1 --->" + catalog.get(i).getTitle());
+                        System.out.println("non disponibile1 --->" + value.getTitle());
                     }
                 }
                 String choice = sc.nextLine();
                 if (Objects.equals(choice, "0")) {
+
                     break;
                 } else {
 
@@ -172,9 +173,8 @@ public class Archive {
 
             } catch (Exception e) {
                 System.out.println("Errore: " + e.getMessage());
-            } finally {
-                sc.close();
             }
         }
+       
     }
 }

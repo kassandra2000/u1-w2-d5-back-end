@@ -9,10 +9,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static kassandrafalsitta.entities.Archive.*;
@@ -21,50 +18,53 @@ public class Application {
 
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+//        add();
+//        searchForAuthor();
+        while (true) {
+            try {
+                System.out.println("quale operazione vuoi effettuare?");
+                System.out.println(" 1. Aggiungi\n 2. Elimina\n 3. Cerca per ISBN\n 4. Cerca per anno\n 5.Cerca per autore\n 0. Per uscire ");
+                String choice = sc.nextLine();
+                if (Objects.equals(choice, "0")) {
+                    break;
+                } else {
 
-        try (Scanner sc = new Scanner(System.in)) {
-            add();
-            System.out.println("quale operazione vuoi effettuare?");
-            System.out.println(" 1. Aggiungi\n 2. Elimina\n 3. Cerca per ISBN\n 4. Cerca per anno\n 5.Cerca per autore\n 0. Per uscire ");
-            String choice = sc.nextLine();
+                    switch (choice) {
 
-            switch (choice) {
-                case "0":
-                    break;
-                case "1":
-                    //esercizio 1
-                    add();
-                    break;
-                case "2":
-                    //esercizio 2
-                    delete();
-                    break;
-                case "3":
-                    //esercizio 3
-                    searchForIsbn();
-                    break;
-                case "4":
-                    //esercizio 4
-                    searchForYear();
-                    break;
-                case "5":
-                    //esercizio 5
-                    searchForAuthor();
-                    break;
-                default:
-                    System.out.println("scelta non valida riprova!\n");
-                    break;
+                        case "1":
+                            //esercizio 1
+                            add();
+                            break;
+                        case "2":
+                            //esercizio 2
+                            delete();
+                            break;
+                        case "3":
+                            //esercizio 3
+                            searchForIsbn();
+                            break;
+                        case "4":
+                            //esercizio 4
+                            searchForYear();
+                            break;
+                        case "5":
+                            //esercizio 5
+                            searchForAuthor();
+                            break;
+                        default:
+                            System.out.println("scelta non valida riprova!\n");
+                            break;
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("inserisci un valore valido");
 
+            } catch (Exception e) {
+                System.out.println("Errore: " + e.getMessage());
             }
-
-
-        } catch (InputMismatchException e) {
-            System.out.println("inserisci un valore valido");
-
-        } catch (Exception e) {
-            System.out.println("Errore: " + e.getMessage());
         }
-
+        sc.close();
 
         saveCatalog();
     }

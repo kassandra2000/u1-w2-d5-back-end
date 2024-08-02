@@ -1,27 +1,27 @@
 package kassandrafalsitta.entities;
 
-import java.util.Random;
+import com.github.javafaker.Faker;
 
 public abstract class Catalog {
-    private long codeIsbn;
+    private final String codeIsbn;
     private String title;
     private int yearOfPublication;
     private int numberOfPages;
     //costruttore
 
     public Catalog(String title, int yearOfPublication, int numberOfPages) {
-        Random r = new Random();
-        this.codeIsbn = r.nextLong(11111111, 999999999);
+        Faker f = new Faker();
+        this.codeIsbn = f.code().isbn10();
         this.title = title;
         this.yearOfPublication = yearOfPublication;
         this.numberOfPages = numberOfPages;
     }
     //getter e setter
 
-    public long getCodeIsbn() {
+
+    public String getCodeIsbn() {
         return codeIsbn;
     }
-    
 
     public String getTitle() {
         return title;
@@ -45,5 +45,15 @@ public abstract class Catalog {
 
     public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
+    }
+
+    @Override
+    public String toString() {
+        return "Catalog{" +
+                "codeIsbn='" + codeIsbn + '\'' +
+                ", title='" + title + '\'' +
+                ", yearOfPublication=" + yearOfPublication +
+                ", numberOfPages=" + numberOfPages +
+                '}';
     }
 }

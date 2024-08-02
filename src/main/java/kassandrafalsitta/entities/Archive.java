@@ -18,7 +18,7 @@ public class Archive {
             try {
                 System.out.println("quale elemento vuoi aggiungere? \n 1.Libro \n 2.Rivista \n 0.Esci");
                 String choice = sc.nextLine();
-                if (Objects.equals(choice, "0")) {
+                if (choice.equals("0")) {
                     break;
                 } else {
                     switch (choice) {
@@ -134,6 +134,46 @@ public class Archive {
 
             } catch (Exception e) {
                 System.out.println("Errore: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void searchForAuthor() {
+        while (true) {
+            try {
+                System.out.println(" inserisci l'autore dell'elemento che vuoi cercare, oppure 0 per uscire");
+                for (int i = 0; i < catalog.size(); i++) {
+                    if (catalog.get(i) instanceof Book) {
+                        System.out.println(((Book) catalog.get(i)).getAuthor() + " --> " + catalog.get(i).getTitle());
+                    } else {
+                        System.out.println("non disponibile1 --->" + catalog.get(i).getTitle());
+                    }
+                }
+                String choice = sc.nextLine();
+                if (Objects.equals(choice, "0")) {
+                    break;
+                } else {
+
+                    List<Catalog> itemSearch = catalog.stream().filter(singleItem -> singleItem instanceof Book).filter(singleItem -> ((Book) singleItem).getAuthor().equals(choice)).toList();
+                    if (!itemSearch.isEmpty()) {
+                        itemSearch.forEach(item -> {
+                            if (item instanceof Book) {
+                                System.out.println(" hai cercato: " + item.getTitle() + " autore: " + ((Book) item).getAuthor() + " isbn " + item.getCodeIsbn() + " ha " + item.getNumberOfPages() + " pagine pubblicato nel: " + item.getYearOfPublication() + "\n");
+                            }
+                        });
+                    } else {
+                        System.out.println("non è stato possibile trovare l'elemento\n");
+                    }
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("inserisci un valore valido");
+
+
+            } catch (Exception e) {
+                System.out.println("Errore: " + e.getMessage());
+            } finally {
+                sc.close();
             }
         }
     }
